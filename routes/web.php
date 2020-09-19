@@ -23,6 +23,9 @@ Route::post('/register', 'customerRegistrationController@postRegistration')->nam
 Route::get('/login', 'LoginController@index')->name('login.index');
 Route::post('/login', ['uses'=>'LoginController@verify']);
 Route::get('/logout', ['as'=>'logout.index', 'uses'=>'logoutController@index']);
+Route::get('/Searchfood', 'SearchController@index');
+Route::get('/Searchfood/action', 'SearchController@action')->name('Sfood.action');
+
 
 
 /*Route::group(['middleware'=>'sess'], function(){
@@ -45,6 +48,18 @@ Route::middleware(['sess'])->group(function(){
 		Route::post('/home/delete/{id}', 'HomeController@destroy');
 		Route::get('/home/profile/{id}', 'HomeController@profile')->name('home.profile');
 		Route::get('/menu/food', 'HomeController@menu')->name('home.food');
+    Route::get('/search', 'HomeController@search')->name('home.food');
+
+		//cart
+		Route::get('/cart', 'CartController@index')->name('cart.index');
+		Route::get('/cart/checkout', 'CartController@checkout')->name('cart.checkout');
+		Route::get('/cart/{food}', 'CartController@add')->name('cart.add');
+		Route::get('/cart/destroy/{id}', 'CartController@destroy')->name('cart.destroy');
+		Route::get('/cart/update/{id}', 'CartController@update')->name('cart.update');
+
+		Route::resource('orders', 'OrderController');
+
+
+
 
 });
-

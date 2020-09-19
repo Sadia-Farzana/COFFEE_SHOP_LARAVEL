@@ -15,12 +15,12 @@ class HomeController extends Controller
     /*function __construct(){
         //session
     }*/
-    
+
     function index(Request $request){
 
-    	
+
         $users = DB::table('customers')->where('username',$request->session()->get('username'))->first();
-        //$user = 
+        //$user =
         return view('home.index')->with('users', $users);
         //echo $request->session()->get('username');
     }
@@ -89,15 +89,15 @@ class HomeController extends Controller
 
     function delete($id){
 
-    	
+
         $user = Customer::find($id);
         return view('home.delete')->with('user', $user);
 
     }
 
     function destroy($id, Request $request){
-    	
-    	
+
+
         if(Customer::destroy($id)){
             return redirect()->route('home.index');
         }else{
@@ -116,5 +116,27 @@ class HomeController extends Controller
         $foods = Food::all();
         return view('home.food', compact('foods'));
     }
+
+    public function search(Request $request)
+    {
+      if($request->ajax())
+      {
+       $output = "";
+       $foods = DB::table('Food')->where('name', 'LIKE', '%'.$request->search.'%')->get();
+       if(foods){
+         foreach ($foods as $key => $food) {
+           $output .= '<tr>'.
+            '<td>'.$foods->name.'</td>'.
+            '<td>'.$foods->price.'</td>'.
+            '<td>'.$foods->status.'</td>'.
+            '<td>'.$foods->ingredients.'</td>'.
+           '</tr>';
+
+         }
+         return response($output);
+       }
+     }
+    }
+
 
 }

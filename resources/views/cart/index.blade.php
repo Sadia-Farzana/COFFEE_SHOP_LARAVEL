@@ -2,8 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home Page</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<title>Cart</title>
 </head>
 @section('nav-bar')
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -29,64 +28,53 @@
               </div>
             </li>
             <li class="nav-item"><a href="{{route('logout.index')}}" class="nav-link">LogOut</a></li>
-            <li class="nav-item cart"><a href="cart.html" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
+            <li class="nav-item cart"><a href="{{route('cart.index')}}" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center">
+            <small>
+            	{{Cart::getContent()->count()}}
+            </small></span></a></li>
           </ul>
         </div>
       </div>
     </nav>
 @endsection
-
+<br>
+<br>
+<br>
+<br>
 <body>
-	
-<br>
-<br>
-<br>
-<div class="p-3 mb-2 bg-primary text-white">
-	<h1>Welcome home! {{$users->username}}</h1>
-
-	<a href="{{route('logout.index')}}" class="btn btn-dark" style="float:right;"> logout</a>
-	<a href="{{route('home.create')}}" class="btn btn-dark" style="float:right;">Create User</a> 
-	<a href="{{route('home.food')}}" class="btn btn-dark" style="float:right;">Menu</a>
-
-<form method="post" enctype="multipart/form-data" align="center" >
-	@csrf
-	
-	
-	
-	<table align="center">
-		<tr><td colspan="2"><img src="{{asset('img/profile/'.$users->image) }}" style="width:300px; height:300px; float:top; border-radius:90%; margin-right:0px;"></td></tr>
-		<tr>
-			<td>Name</td>
-			<td>{{$users->name}}</td></tr>
-		<tr>
-			<td>User Name</td>
-			<td>{{$users->username}}</td>
+	<h2>Cart</h2>
+<div class="cart-list">
+<table class="table">
+	<thead class="thead-primary">
+		<tr class="text-center">
+			<th>Name</th>
+			<th>price</th>
+			<th>Quantity</th>
+			<th>Action</th>
 		</tr>
+	</thead>
+	<tbody class="text-center">
+		@foreach($carts as $cart)
 		<tr>
-			<td>Password</td>
-			<td>{{$users->password}}</td>
+			<td class="price">{{$cart->name}}</td>
+			<td class="price">
+				{{Cart::get($cart->id)->getPriceSum()}}
+			</td>
+			<td >
+				<form action="{{route('cart.update',$cart->id)}}">
+				{{csrf_field()}}
+					<input type="number" name="quantity"  value="{{$cart->quantity}}">
+					<input type="submit" value="Save" min="1" max="100">
+				</form>	
+			</td>
+			<td class="product-remove">
+				<a href="{{route('cart.destroy',$cart->id)}}"><span class="icon-close">Delete</span></a>
+			</td>
 		</tr>
-		<tr>
-			<td>Phone</td>
-			<td>{{$users->phone}}</td>
-		</tr>
-		<tr>
-			<td>Email</td>
-			<td>{{$users->email}}</td>
-		</tr>
-		<tr>
-			<td>Address</td>
-			<td>{{$users->address}}</td>
-		</tr>	
-		<tr>
-			<td>Membership</td>
-			<td>{{$users->membership}}</td>
-		</tr>
-		</tr>
-		<tr><td colspan="2"><br><a href="{{route('home.edit',$users->c_id)}}" class="btn btn-dark">Edit</a></td></tr>
-	</table>
-</form>
-</div>
+		@endforeach
+	</tbody>
+</table>
+<h2 class="total">Total Price: {{Cart::getSubTotal()}}</h2>	
+<a href="{{ route('cart.checkout') }}" class="btn btn-primary" role="button">CheckOut</a>
 </body>
-
 </html>

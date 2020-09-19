@@ -4,6 +4,8 @@
 <html>
 <head>
 	<title> User</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
@@ -13,34 +15,42 @@
 
 	<a href="{{route('home.index')}}">Back</a>
 	<form method="get">
-		
+		<div class="col-md-6">
+	<input type="text" name="search" id="search" class="form-control" placeholder="Search item"/>
+	<div>
 		{{csrf_field()}}
 		@foreach($foods as $food)
 		<br>
 		<fieldset>
-		<table class="center">
+			<table class="table table-striped table-bordered">
 			<legend ><h4>{{ $food->name }}</h4></legend>
     			<tr>
     				<th>ID</th>
-    				<td>{{ $food->id }}</td>
+									<th>NAME</th>
+							<th>Price/item</th>
+							<th>Status</th>
+							<th>Ingredients</th>
+
+
 				</tr>
+				<tbody id="ajax">
+				</tbody>
+				<tbody id="stable">
 				<tr>
-    				<th>NAME</th>
-    				<td>{{ $food->name }}</td>
-				</tr>
-				<tr>
-          			<th>Price/item</th>
+    	        <td>{{ $food->id }}</td>
+    				 <td>{{ $food->name }}</td>
+
+
           			<td>{{ $food->price }}</td>
           			<!--<td><a href="/customer/comment/<%= userList[i].id %>">review</a></td>-->
-				</tr>
-				<tr>
-    				<th>Status</th>
-    				<td>{{ $food->status }}</td>
-				</tr>
-				<tr>
-    				<th>Ingredients</th>
+				       <td>{{ $food->status }}</td>
+
     				<td>{{ $food->ingredients }}</td>
     			</tr>
+    			<tr>
+    				<td><a href="{{route('cart.add', $food->id)}}" class="btn btn-dark">Add cart</a></td>
+    			</tr>
+				</tbody>
 		</table>
 	</fieldset>
 	@endforeach
@@ -48,3 +58,29 @@
 	</div>
 </body>
 </html>
+
+
+<script type="text/javascript">
+$('#search').on('keyup',function(){
+	var value =$(this).val();
+	$.ajax({
+	 type:'get',
+	 url:"{{ URL::to('search') }}",
+	 data:{
+		 search:value,
+	 },
+	 success:function(data){
+		 $('#stable').hide();
+		 $('#ajax').html(data);
+
+	 },
+	 error: function(jqXHR,textStatus,errorThrown){
+	console.log("ajax error:"+textStatus+':'+errorThrown);
+	},
+    });
+
+});
+</script>
+<script type="text/javascript">
+$.ajaxSetup({headers:{'csrftoken':'{{csrf_token()}}'}});
+</script>
