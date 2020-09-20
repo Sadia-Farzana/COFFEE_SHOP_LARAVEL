@@ -38,6 +38,9 @@ Route::get('/logout', ['as'=>'logout.index', 'uses'=>'logoutController@index']);
 
 Route::middleware(['sess'])->group(function(){
   Route::get('/profile', 'DeliverymanController@index')->name('deliveryman.index');
+  Route::get('/user/edit/{id}', 'DeliverymanController@edit')->name('deliveryman.edit');
+  Route::post('/user/edit/{id}', 'DeliverymanController@update');
+
   });
 
 Route::middleware(['sess'])->group(function(){

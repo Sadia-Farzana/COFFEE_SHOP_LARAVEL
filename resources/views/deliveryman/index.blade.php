@@ -45,6 +45,7 @@
 	<h1>Welcome home! {{$users->username}}</h1>
 
 	<a href="{{route('logout.index')}}" class="btn btn-dark" style="float:right;"> logout</a>
+  <a href="{{route('deliveryman.edit',$users->id)}}"class="btn btn-dark" style="float:right;">Edit</a>
 	<a href="{{route('home.food')}}" class="btn btn-dark" style="float:right;">Menu</a>
 
 <form method="post" enctype="multipart/form-data" align="center" >
@@ -54,6 +55,8 @@
 
 
 	<table align="center">
+    <tr><td colspan="2"><img src="{{asset('img/profile/'.$users->image) }}" style="width:300px; height:300px; float:top; border-radius:90%; margin-right:0px;"></td></tr>
+
 		<tr>
 			<td>Name</td>
 			<td>{{$users->name}}</td></tr>
