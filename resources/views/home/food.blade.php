@@ -4,7 +4,10 @@
 <html>
 <head>
 	<title> User</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/d3js/6.1.1/d3.min.js"></script>
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
@@ -57,15 +60,15 @@
 	</form>
 	</div>
 </body>
-</html>
+
 
 
 <script type="text/javascript">
 $('#search').on('keyup',function(){
 	var value =$(this).val();
 	$.ajax({
-	 type:'get',
-	 url:"{{ URL::to('search') }}",
+	 type:'POST',
+	 url:'/search',
 	 data:{
 		 search:value,
 	 },
@@ -74,13 +77,15 @@ $('#search').on('keyup',function(){
 		 $('#ajax').html(data);
 
 	 },
-	 error: function(jqXHR,textStatus,errorThrown){
-	console.log("ajax error:"+textStatus+':'+errorThrown);
+	    error: function(jqXHR,textStatus,errorThrown){
+	    console.log("ajax error:"+textStatus+':'+errorThrown);
 	},
     });
 
 });
+
 </script>
 <script type="text/javascript">
 $.ajaxSetup({headers:{'csrftoken':'{{csrf_token()}}'}});
 </script>
+</html>

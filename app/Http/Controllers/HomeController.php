@@ -122,7 +122,7 @@ class HomeController extends Controller
       if($request->ajax())
       {
        $output = "";
-       $foods = DB::table('Food')->where('name', 'LIKE', '%'.$request->search.'%')->get();
+       $foods = DB::table('foods')->where('name', 'LIKE', '%'.$request->search.'%')->get();
        if(foods){
          foreach ($foods as $key => $food) {
            $output .= '<tr>'.
