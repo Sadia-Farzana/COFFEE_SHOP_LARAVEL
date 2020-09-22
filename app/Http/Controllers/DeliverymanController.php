@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Validator;
 use Illuminate\Support\Facades\DB;
 
 class DeliverymanController extends Controller
@@ -23,7 +24,27 @@ class DeliverymanController extends Controller
   }
 
   function update($id, Request $request){
+ $validation = Validator::make($request->all(),
+  [
+    'name' => 'required|string|alpha|max:100',
+    'username' => 'required|string|max:100',
+    'password' => 'required|min:6',
+    'phone' => 'required|string|unique:customers',
+    'email' => 'required|email|unique:customers',
+    'address' => 'required|string|max:200',
+    'image' => 'required|mimes:jpge,jpg,png|max:5000',
+    ]);
+    if($validation->fails()){
+        return back()
+                ->with('errors', $validation->errors())
+                ->withInput();
 
+        return redirect()->route('deliveryman.edit')
+                        ->with('errors', $validation->errors())
+                        ->withInput();
+        }
+        else {
+          // code...
 
       $user =User::find($id);
       $user->name         = $request->name;
@@ -42,6 +63,7 @@ class DeliverymanController extends Controller
       $file->move('img/profile/', $filename);
       $user->image =$filename;
       $user->save();
+    }
   }
 
       $user->save();

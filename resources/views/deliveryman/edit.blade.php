@@ -51,7 +51,10 @@
 					<input type="hidden" name="old_photo" value="{{$user->image}}">
 				</td>
 			</tr>
-
+			<h4 style="color: red"> @foreach($errors->all() as $err)
+			    {{$err}} <br>
+			  @endforeach</h4>
+			{{session('msg')}}
 			<tr>
 				<td></td>
 				<td><input type="submit" name="submit" value="update"></td>

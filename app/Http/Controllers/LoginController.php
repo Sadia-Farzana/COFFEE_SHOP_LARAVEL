@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Validator;
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -34,29 +36,51 @@ class LoginController extends Controller
         }
     }
 
-    function userlogin(Request $request)
+    function userlogin(Request $req)
     {
-          $user = new User;
-          $test=$user->where('username',$request->username)
-                 ->where('password',$request->password)
-                 ->get();
+       $validation = Validator::make($req->all(), [
+            'username'=>'bail|required|exists:users,username',
+            'password'=>'required|exists:users,password'
 
-         if(count($test) > 0){
+        ]);
 
-               if($test[0]['userType']=="deliveryman")
-               {
+        if($validation->fails()){
+            return back()
+                    ->with('errors', $validation->errors())
+                    ->withInput();
 
-                 $request->session()->put('username',$request->username);
+            return redirect()->route('/login')
+                            ->with('errors', $validation->errors())
+                            ->withInput();
+            }
+
+            else {
+                 $user = DB::table('users')
+                    ->where('username', $req->username)
+                    ->where('password', $req->password)
+                    ->first();
+         if ( $user) {
+
+         if($user->userType=='deliveryman'){
+                   $req->session()->put('username', $req->username);
                    return redirect()->route('deliveryman.index');
                }
-               else
-               {
-                 return redirect('login.index');
+
+               else{
+
+                   return redirect()->route('login.index');
                }
          }
-         else{
-           $request->session()->flash('msg','Invalid username/password');
+         else
+         {
+           $req->session()->flash('msg', 'Please,cheack Your username and password again');
            return redirect()->route('login.index');
          }
+
+
+          // }
+
+
+             }
    }
 }

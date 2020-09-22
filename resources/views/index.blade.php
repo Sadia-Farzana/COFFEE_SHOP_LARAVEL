@@ -168,7 +168,7 @@
                 <h3 class="heading">Easy to Order</h3>
                 <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
               </div>
-            </div>      
+            </div>
           </div>
           <div class="col-md-4 ftco-animate">
             <div class="media d-block text-center block-6 services">
@@ -179,7 +179,7 @@
                 <h3 class="heading">Fastest Delivery</h3>
                 <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
               </div>
-            </div>      
+            </div>
           </div>
           <div class="col-md-4 ftco-animate">
             <div class="media d-block text-center block-6 services">
@@ -189,7 +189,7 @@
                 <h3 class="heading">Quality Coffee</h3>
                 <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
               </div>
-            </div>    
+            </div>
           </div>
         </div>
       </div>
@@ -471,7 +471,7 @@
                 </div>
               </div>
             </form>
-          </div>          
+          </div>
         </div>
       </div>
     </section>

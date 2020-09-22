@@ -58,9 +58,11 @@
 				<td></td>
 				<td><input type="submit" name="submit" value="Submit"></td>
 			</tr>
+      @foreach($errors->all() as $err)
+   {{$err}} <br>
+      @endforeach	<br>
 		</table>
 		</fieldset>
 	</form>
 </body>
 </html>
-
