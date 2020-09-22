@@ -4,6 +4,8 @@
 <html>
 <head>
 	<title> User</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -19,7 +21,7 @@
 	<a href="{{route('home.index')}}">Back</a>
 	<form method="get">
 		<div class="col-md-6">
-	<input type="text" name="search" id="search" class="form-control" placeholder="Search item"/>
+	<input type="text" name="search" id="search" class="form-control" onkeyup="search()" placeholder="Search item"/>
 	<div>
 		{{csrf_field()}}
 		@foreach($foods as $food)
@@ -36,18 +38,16 @@
 
 
 				</tr>
+
 				<tbody id="ajax">
 				</tbody>
 				<tbody id="stable">
 				<tr>
     	        <td>{{ $food->id }}</td>
     				 <td>{{ $food->name }}</td>
-
-
           			<td>{{ $food->price }}</td>
           			<!--<td><a href="/customer/comment/<%= userList[i].id %>">review</a></td>-->
 				       <td>{{ $food->status }}</td>
-
     				<td>{{ $food->ingredients }}</td>
     			</tr>
     			<tr>
@@ -64,28 +64,47 @@
 
 
 <script type="text/javascript">
-$('#search').on('keyup',function(){
-	var value =$(this).val();
-	$.ajax({
-	 type:'POST',
+
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+		$(document).ready(function(){
+
+		 search();
+
+		 function search(value = '')
+		 {
+
+	    $.ajax({
+
 	 url:'/search',
+	 type:'POST',
+	 dataType:'json',
 	 data:{
 		 search:value,
 	 },
 	 success:function(data){
 		 $('#stable').hide();
-		 $('#ajax').html(data);
+		 $('#ajax').html(data.table_data);
 
 	 },
 	    error: function(jqXHR,textStatus,errorThrown){
-	    console.log("ajax error:"+textStatus+':'+errorThrown);
+	    console.log("ajax error:");
 	},
     });
 
+
+}
+$(document).on('keyup', '#search', function(){
+ var value = $(this).val();
+ search(value);
+
+});
 });
 
 </script>
 <script type="text/javascript">
-$.ajaxSetup({headers:{'csrftoken':'{{csrf_token()}}'}});
 </script>
 </html>

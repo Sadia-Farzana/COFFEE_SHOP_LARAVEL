@@ -117,13 +117,14 @@ class HomeController extends Controller
         return view('home.food', compact('foods'));
     }
 
-    public function search(Request $request)
+    public function searchfood(Request $request)
     {
       if($request->ajax())
       {
        $output = "";
-       $foods = DB::table('foods')->where('name', 'LIKE', '%'.$request->search.'%')->get();
-       if(foods){
+         $food = new Food;
+       $foods = $food->where('name', 'LIKE', $request->search.'%')->get();
+       if(foods  != ''){
          foreach ($foods as $key => $food) {
            $output .= '<tr>'.
             '<td>'.$foods->name.'</td>'.
@@ -133,6 +134,10 @@ class HomeController extends Controller
            '</tr>';
 
          }
+         $data = array(
+          'table_data'  => $output,
+
+         );
          return response($output);
        }
      }

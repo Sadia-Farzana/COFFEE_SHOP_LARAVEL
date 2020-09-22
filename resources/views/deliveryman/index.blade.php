@@ -42,11 +42,13 @@
 <br>
 <br>
 <div class="p-3 mb-2 bg-primary text-white">
-	<h1>Welcome home! {{$users->username}}</h1>
+	<h1>Welcome home! {{$users->name}}</h1>
 
 	<a href="{{route('logout.index')}}" class="btn btn-dark" style="float:right;"> logout</a>
   <a href="{{route('deliveryman.edit',$users->id)}}"class="btn btn-dark" style="float:right;">Edit</a>
 	<a href="{{route('home.food')}}" class="btn btn-dark" style="float:right;">Menu</a>
+	<a href="{{route('deliveryman.takeaway')}}" class="btn btn-dark" style="float:right;">Takeaway List</a>
+
 
 <form method="post" enctype="multipart/form-data" align="center" >
 	@csrf

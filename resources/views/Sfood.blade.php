@@ -17,7 +17,7 @@
 
 	<form method="get">
 	<div class="col-md-6">
-<input type="text" name="search" id="search" class="form-control" placeholder="Search item"/>
+<input type="text" name="search" id="search" class="form-control" onkeyup="search()" placeholder="Search item"/>
 <div>
 
 		<br>
@@ -53,16 +53,16 @@ $(document).ready(function(){
  function search(query = '')
  {
   $.ajax({
-   url:"{{ route('Sfood.action') }}",
-   method:'GET',
+   url:"{{ route('Sfood') }}",
+   method:'post',
    data:{query:query},
    dataType:'json',
    success:function(data)
    {
     $('tbody').html(data.table_data);
     $('#total_records').text(data.total_data);
-   }
-  })
+	},
+ });
  }
 
  $(document).on('keyup', '#search', function(){

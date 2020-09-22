@@ -49,4 +49,61 @@ class DeliverymanController extends Controller
     return redirect()->route('deliveryman.index');
 
   }
+    function takeaway(Request $request){
+
+     	$takeaway = DB::table('takeaway')
+                        ->where('status','pending')
+                        ->orderby('id','desc')
+                        ->get();
+
+ 		return view('deliveryman.takeaway')
+                     ->with('takeaway',$takeaway);
+     }
+
+     public function accept($id){
+
+       $accept = DB::table('takeaway')
+                  ->where('id',$id)
+                   ->update( ['status' =>'accepted' ]);
+
+       return redirect()->route('deliveryman.accept');
+   }
+
+   function Acceptedlist(Request $request){
+
+      $takeaway = DB::table('takeaway')
+                       ->where('status','accepted')
+                       ->orderby('id','desc')
+                       ->get();
+
+     return view('deliveryman.accept')
+                    ->with('takeaway',$takeaway);
+    }
+    public function export( $id)
+       {
+           $data = DB::table('takeaway')->where('id',$id)->orderBy('id','DESC')->first();
+           $proData="";
+           if(count((array)$data)>0){
+               $proData .='<table align="center">
+               ';
+
+               foreach ($data as $key=>$item) {
+                    $proData .='
+                    <tr>
+                    <td>'.$key.'</td>
+                    <td align="center">'.$item.'</td>
+                    </tr>';
+               }
+               $proData .='</table>';
+           }
+           header('Content-Type: application/xls');
+           header('Content-Disposition: attachment; filename=order receipt.xls');
+           echo $proData;
+           //var_dump($data);
+           //echo count($data);
+           //return response()->json($data);
+       }
+
+
+
 }

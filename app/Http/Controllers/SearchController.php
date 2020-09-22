@@ -21,7 +21,7 @@ class SearchController extends Controller
       $query = $request->get('query');
       if($query != '')
       {
-       $data = DB::table('food')
+       $data = DB::table('foods')
          ->where('name', 'like', '%'.$query.'%')
          ->orWhere('price', 'like', '%'.$query.'%')
          ->orWhere('status', 'like', '%'.$query.'%')

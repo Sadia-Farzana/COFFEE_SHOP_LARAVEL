@@ -24,7 +24,8 @@ Route::get('/login', 'LoginController@index')->name('login.index');
 //Route::post('/login', ['uses'=>'LoginController@verify']);
 Route::post('/login', ['uses'=>'LoginController@userlogin']);
 Route::get('/logout', ['as'=>'logout.index', 'uses'=>'logoutController@index']);
-//Route::get('/Searchfood/action', 'SearchController@action')->name('Sfood.action');
+Route::get('/Searchfood/action', 'SearchController@index')->name('Sfood');
+Route::post('/Searchfood/action', 'SearchController@action')->name('Sfood');
 
 
 
@@ -41,6 +42,12 @@ Route::middleware(['sess'])->group(function(){
   Route::get('/user/edit/{id}', 'DeliverymanController@edit')->name('deliveryman.edit');
   Route::post('/user/edit/{id}', 'DeliverymanController@update');
 
+  Route::get('/takeaway', 'DeliverymanController@takeaway')->name('deliveryman.takeaway');
+  Route::get('deliveryman/accept/{id}', 'DeliverymanController@accept');
+  Route::get('/Acceptedlist', 'DeliverymanController@Acceptedlist')->name('deliveryman.accept');
+  Route::get('deliveryman/download/{id}', 'DeliverymanController@export');
+
+
   });
 
 Route::middleware(['sess'])->group(function(){
@@ -55,8 +62,7 @@ Route::middleware(['sess'])->group(function(){
 		Route::post('/home/delete/{id}', 'HomeController@destroy');
 		Route::get('/home/profile/{id}', 'HomeController@profile')->name('home.profile');
 		Route::get('/menu/food', 'HomeController@menu')->name('home.food');
-    Route::post('/search', 'HomeController@search');
-
+    Route::post('/search', 'HomeController@searchfood');
 
 
 		//cart
