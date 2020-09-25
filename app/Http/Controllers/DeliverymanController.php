@@ -71,6 +71,29 @@ class DeliverymanController extends Controller
     return redirect()->route('deliveryman.index');
 
   }
+
+
+      function deleteDman($id)
+      {
+
+
+         $user = User::find($id);
+        return view('deliveryman.delete')->with('user', $user);
+
+      }
+
+      function destroyDman($id, Request $request){
+
+
+          if(User::destroy($id))
+          {
+              return redirect()->route('deliveryman.index');
+          }
+          else
+          {
+              return redirect()->route('deliveryman.delete', $id);
+          }
+      }
     function takeaway(Request $request){
 
      	$takeaway = DB::table('takeaway')
@@ -101,6 +124,39 @@ class DeliverymanController extends Controller
      return view('deliveryman.accept')
                     ->with('takeaway',$takeaway);
     }
+
+    public function completed($id){
+
+      $accept = DB::table('takeaway')
+                 ->where('id',$id)
+                  ->update( ['status' =>'completed' ],['is_paid' =>'1' ]);
+
+
+
+      return redirect()->route('deliveryman.completed');
+  }
+
+  function completedlist(Request $request){
+
+     $takeaway = DB::table('takeaway')
+                      ->where('status','completed')
+                      ->orderby('id','desc')
+                      ->get();
+
+    return view('deliveryman.completed')
+                   ->with('takeaway',$takeaway);
+   }
+
+  public function reject($id){
+
+    $accept = DB::table('takeaway')
+               ->where('id',$id)
+                ->update( ['status' =>'completed' ]);
+
+
+                     return view('deliveryman.completed')
+                                    ->with('takeaway',$takeaway);
+}
     public function export( $id)
        {
            $data = DB::table('takeaway')->where('id',$id)->orderBy('id','DESC')->first();

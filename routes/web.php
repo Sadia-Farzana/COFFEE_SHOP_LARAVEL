@@ -27,6 +27,8 @@ Route::get('/logout', ['as'=>'logout.index', 'uses'=>'logoutController@index']);
 Route::get('/Searchfood/action', 'SearchController@index')->name('Sfood');
 Route::post('/Searchfood/action', 'SearchController@action')->name('Sfood');
 
+Route::get('/reservation', 'ReservationController@index')->name('Reservation.index');
+Route::post('/reservation', 'ReservationController@insert');
 
 
 /*Route::group(['middleware'=>'sess'], function(){
@@ -41,10 +43,15 @@ Route::middleware(['sess'])->group(function(){
   Route::get('/profile', 'DeliverymanController@index')->name('deliveryman.index');
   Route::get('/user/edit/{id}', 'DeliverymanController@edit')->name('deliveryman.edit');
   Route::post('/user/edit/{id}', 'DeliverymanController@update');
-
   Route::get('/takeaway', 'DeliverymanController@takeaway')->name('deliveryman.takeaway');
   Route::get('deliveryman/accept/{id}', 'DeliverymanController@accept');
+  Route::get('deliveryman/reject/{id}', 'DeliverymanController@reject');
+
   Route::get('/Acceptedlist', 'DeliverymanController@Acceptedlist')->name('deliveryman.accept');
+  Route::get('/deliveryman/completed/{id}', 'DeliverymanController@completed');
+  Route::get('/Completedlist', 'DeliverymanController@completedlist')->name('deliveryman.completed');
+
+
   Route::get('deliveryman/download/{id}', 'DeliverymanController@export');
 
 

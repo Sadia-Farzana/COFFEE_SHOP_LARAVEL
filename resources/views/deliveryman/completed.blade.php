@@ -43,48 +43,46 @@
 <hr>
 <body>
 
-<center><h1>Accepted Orderlist List</h1></center>
+<center><h1>Completed Delivery List</h1></center>
 <table id="example" class="table table-striped table-bordered" style="width:100%">
 <thead>
-   <tr>
-       <th> Id</th>
-       <th>Order Id</th>
-       <th>User Name</th>
-       <th>Order Status</th>
-       <th>Total Amount</th>
-       <th>Total Items</th>
-       <th>Is Paid</th>
-       <th>Payement Method</th>
-       <th>Shipping Name</th>
-       <th>Shipping Address</th>
-       <th>Contact No</th>
+  <tr>
+      <th> Id</th>
+      <th>Order Id</th>
+      <th>User Name</th>
+      <th>Order Status</th>
+      <th>Total Amount</th>
+      <th>Total Items</th>
+      <th>Is Paid</th>
+      <th>Payement Method</th>
+      <th>Shipping Name</th>
+      <th>Shipping Address</th>
+      <th>Contact No</th>
 
-       <th>Note</th>
-       <th><center>Option</center></th>
+      <th>Note</th>
 
-   </tr>
+
+  </tr>
 </thead>
 
 
 <tbody>
 @foreach($takeaway as $takeaway)
-   <tr>
+  <tr>
 
-       <td>{{$takeaway->id}} </td>
-       <td>{{$takeaway->order_number}} </td>
-       <td>{{$takeaway->user}}</td>
-       <td>{{$takeaway->status}}</td>
-       <td>{{$takeaway->grand_total}}</td>
-       <td>{{$takeaway->item_count}} </td>
-       <td>{{$takeaway->is_paid}} </td>
-       <td>{{$takeaway->payment_method}} </td>
-       <td>{{$takeaway->shipping_name}} </td>
-       <td>{{$takeaway->shipping_address}} </td>
-       <td>{{$takeaway->shipping_phone}} </td>
-       <td>{{$takeaway->shipping_notes}} </td>
+      <td>{{$takeaway->id}} </td>
+      <td>{{$takeaway->order_number}} </td>
+      <td>{{$takeaway->user}}</td>
+      <td>{{$takeaway->status}}</td>
+      <td>{{$takeaway->grand_total}}</td>
+      <td>{{$takeaway->item_count}} </td>
+      <td>{{$takeaway->is_paid}} </td>
+      <td>{{$takeaway->payment_method}} </td>
+      <td>{{$takeaway->shipping_name}} </td>
+      <td>{{$takeaway->shipping_address}} </td>
+      <td>{{$takeaway->shipping_phone}} </td>
+      <td>{{$takeaway->shipping_notes}} </td>
 
-       <td><center><button  onclick="document.location='/deliveryman/download/{{$takeaway->id}}'" type="button" class="btn btn-primary">Download Order History</button>
-         <center><button  onclick="document.location='/deliveryman/completed/{{$takeaway->id}}'" type="button" class="btn btn-info">Delivery Done</button></td>
 
    </tr>
 @endforeach

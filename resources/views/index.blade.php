@@ -11,15 +11,10 @@
             <li class="nav-item active"><a href="{{('/')}}" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="{{('login')}}" class="nav-link">Login</a></li>
             <li class="nav-item"><a href="{{('register')}}" class="nav-link">Register</a></li>
-            <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+            <li class="nav-item"><a href="{{route('Reservation.index')}}" class="nav-link">Book A Table</a></li>
             <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="room.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-                <a class="dropdown-item" href="shop.html">Shop</a>
-                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="room.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
+
               </div>
             </li>
             <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
@@ -100,33 +95,43 @@
             <form action="#" class="appointment-form">
               <div class="d-md-flex">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="First Name">
+                  <input type="text" id="fn" class="form-control" placeholder="First Name">
                 </div>
                 <div class="form-group ml-md-4">
-                  <input type="text" class="form-control" placeholder="Last Name">
+                  <input type="text"id="ln" class="form-control" placeholder="Last Name">
                 </div>
               </div>
               <div class="d-md-flex">
                 <div class="form-group">
                   <div class="input-wrap">
                     <div class="icon"><span class="ion-md-calendar"></span></div>
-                    <input type="text" class="form-control appointment_date" placeholder="Date">
+                    <input type="date" id="date" class="form-control appointment_date" placeholder="Date">
                   </div>
                 </div>
                 <div class="form-group ml-md-4">
                   <div class="input-wrap">
                     <div class="icon"><span class="ion-ios-clock"></span></div>
-                    <input type="text" class="form-control appointment_time" placeholder="Time">
+                    <input type="time" id="time" class="form-control appointment_time" placeholder="Time">
                   </div>
                 </div>
                 <div class="form-group ml-md-4">
-                  <input type="text" class="form-control" placeholder="Phone">
+                  <input type="number" id="phone" class="form-control" placeholder="Phone">
                 </div>
               </div>
               <div class="d-md-flex">
+                    <div class="form-group">
+                      <textarea name="" id="message" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
+
+              </div>
+
+              <div class="d-md-flex">
                 <div class="form-group">
-                  <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
+                  <input type="email" id="email" class="form-control" placeholder="Email">
                 </div>
+                <div class="d-md-flex">
+                  <div class="form-group">
+                    <input type="number" name="" id="person" cols="40" rows="2" class="form-control" placeholder="Person"></textarea>
+                  </div>
                 <div class="form-group ml-md-4">
                   <input type="submit" value="Appointment" class="btn btn-white py-3 px-4">
                 </div>

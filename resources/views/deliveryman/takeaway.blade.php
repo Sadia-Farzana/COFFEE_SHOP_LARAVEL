@@ -20,13 +20,36 @@
 <script type="text/javascript" src="http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer></script>
 
 </head>
+@section('nav-bar')
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Coffee<small>Blend</small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a href="{{('/')}}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{{route('home.food')}}" class="nav-link">Menu</a></li>
+            <li class="nav-item"><a href="{{('takeaway')}}" class="nav-link">Takeaway List</a></li>
+            <li class="nav-item"><a href="{{('Acceptedlist')}}" class="nav-link">Acceptedlist</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+						<li class="nav-item"><a href="{{('Completedlist')}}" class="nav-link">Completed List</a></li>
+
+            <li class="nav-item"><a href="{{route('logout.index')}}" class="nav-link">LogOut</a></li>
+            <li class="nav-item cart"><a href="cart.html" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+@endsection
 
 <br>
 <br>
 <br>
 <br>
 <body>
-
+<hr>
 <center><h1>All Take Away List</h1></center>
 <table id="example" class="table table-striped table-bordered" style="width:100%">
 <thead>
@@ -66,7 +89,7 @@
        <td>{{$takeaway->shipping_notes}} </td>
 
        <td><center><button  onclick="document.location='/deliveryman/accept/{{$takeaway->id}}'" type="button" class="btn btn-info">Accept</button>
-           <button  type="button" class="btn btn-danger">Decline</button></center></td>
+           <button  type="button" onclick="document.location='/deliveryman/reject/{{$takeaway->id}}'" class="btn btn-danger">Decline</button></center></td>
 
    </tr>
 @endforeach

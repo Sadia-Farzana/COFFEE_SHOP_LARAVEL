@@ -13,6 +13,7 @@ class CreateTakeawayTable extends Migration
      */
     public function up()
     {
+
         Schema::create('takeaway', function (Blueprint $table) {
             $table->bigIncrements('id');
           $table->string('order_number');
